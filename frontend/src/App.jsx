@@ -13,12 +13,34 @@ import SearchBar from './component/SearchBar'
 import { ToastContainer, toast } from 'react-toastify';
 import Order from './pages/Order'
 import ProtectedRoute from './component/Auth/ProtectedRoute'
+import { useEffect, useState } from 'react'
+import SessionExpiredModal from './component/SessionExpiredModal'
 
 // set up the routes for the application
 function App() {
+  const [isSessionExpired, setIsSessionExpired] = useState(false);
+
+  useEffect(() => {
+    const handleSessionExpired = () => {
+      setIsSessionExpired(true);
+    };
+
+    window.addEventListener('sessionExpired', handleSessionExpired);
+
+    return () => {
+      window.removeEventListener('sessionExpired', handleSessionExpired);
+    };
+  }, []);
+
+  const handleCloseModal = () => {
+    setIsSessionExpired(false);
+  }
+
+
   return (
     <>
       <div>  
+        <SessionExpiredModal isOpen={isSessionExpired} onClose={handleCloseModal} />
         <ToastContainer />
         {/* Navbar */}
         <Navbar />
