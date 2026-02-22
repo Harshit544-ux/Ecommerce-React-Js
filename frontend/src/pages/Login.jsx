@@ -1,8 +1,6 @@
-import React from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
-
 
 function Login() {
   const navigate = useNavigate();
@@ -53,7 +51,7 @@ function Login() {
         return;
       }
 
-      // ✅ Save token
+      //  Save token
       if (data.success && data.token) {
         localStorage.setItem('auth-token', data.token);
         window.dispatchEvent(new Event('authChange'));

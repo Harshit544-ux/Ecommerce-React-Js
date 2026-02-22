@@ -18,7 +18,7 @@ function SearchBar() {
   };
 
   return showSearch ? (
-    <div className="border-t border-b bg-gray-100 py-4 px-4 sm:px-8 flex bg-black items-center">
+    <div className="border-t border-b bg-gray-100 py-4 px-4 sm:px-8 flex items-center">
       <div className="flex flex-1 max-w-3xl mx-auto items-center border border-gray-300 bg-white px-4 py-2 rounded-full shadow-sm">
         <input
           type="text"
