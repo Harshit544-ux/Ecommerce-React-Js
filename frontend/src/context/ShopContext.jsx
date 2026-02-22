@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import authFetch from "../utils/authFetch";
 
 export const ShopContext = createContext();
 
@@ -30,7 +31,7 @@ const ShopContextProvider = (props) => {
     });
 
     try {
-      const res = await fetch("http://localhost:4000/cart/add", {
+      const res = await authFetch("http://localhost:4000/cart/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +65,7 @@ const ShopContextProvider = (props) => {
     if (!token) return;
 
     try {
-      const res = await fetch("http://localhost:4000/cart/get", {
+      const res = await authFetch("http://localhost:4000/cart/get", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
