@@ -7,7 +7,7 @@ export const authUser = async (req, res, next) => {
       return res.status(401).json({ success: false, message: "No token provided or token is not Bearer" });
     }
     const token = authHeader.split(' ')[1];
-   
+
     if (!token) {
       return res.status(401).json({ success: false, message: "No token provided" });
     }
@@ -15,6 +15,10 @@ export const authUser = async (req, res, next) => {
     // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+    // Reject old tokens that have no id (generated before jwt.js was fixed)
+    if (!decoded.id) {
+      return res.status(401).json({ success: false, message: "Session expired. Please login again." });
+    }
 
     // Attach decoded user to request
     req.user = decoded;
