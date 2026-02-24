@@ -143,7 +143,17 @@ const ShopContextProvider = (props) => {
 
   useEffect(() => {
     fetchProducts();
-    loadUserCart(); // ✅ page refresh par cart restore
+    loadUserCart();
+  }, []);
+
+  // Handle session expiry (fired by authFetch when backend returns 401)
+  useEffect(() => {
+    const handleSessionExpired = () => {
+      setCartItems({});
+      alert("Your session has expired. Please login again.");
+    };
+    window.addEventListener("sessionExpired", handleSessionExpired);
+    return () => window.removeEventListener("sessionExpired", handleSessionExpired);
   }, []);
 
   const contextValue = {
