@@ -72,8 +72,9 @@ const ShopContextProvider = (props) => {
       });
 
       const data = await res.json();
-      if (data.success && data.cart?.cart_data) {
-        setCartItems(data.cart.cart_data);
+      // Backend returns: { success: true, cart: <cart_data_object> }
+      if (data.success && data.cart && typeof data.cart === 'object') {
+        setCartItems(data.cart);
       }
     } catch (err) {
       console.error("Failed to load cart", err);
@@ -116,7 +117,7 @@ const ShopContextProvider = (props) => {
   const getCartAmount = () => {
     let total = 0;
     for (const itemId in cartItems) {
-      const product = products.find(p => p.id === itemId);
+      const product = products.find(p => String(p.id) === String(itemId));
       if (!product) continue;
 
       for (const size in cartItems[itemId]) {
