@@ -7,8 +7,7 @@ export const authUser = async (req, res, next) => {
       return res.status(401).json({ success: false, message: "No token provided or token is not Bearer" });
     }
     const token = authHeader.split(' ')[1];
-    console.log("token", token)
-
+   
     if (!token) {
       return res.status(401).json({ success: false, message: "No token provided" });
     }

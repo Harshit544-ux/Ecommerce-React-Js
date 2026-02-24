@@ -26,7 +26,7 @@ const addToCart = async (req, res) => {
       });
     }
 
-    const { data, error } = addToCartService(userId, itemId, size.trim());
+    const { data, error } = await addToCartService(userId, itemId, size.trim());
 
     if (error) {
       console.error("Add to cart error:", error);

@@ -149,7 +149,7 @@ function Collection() {
           <div className='flex items-center gap-3'>
             <label className='text-sm text-gray-600 font-medium hidden sm:block'>Sort By:</label>
             <select
-              className='border border-gray-300 text-sm px-4 py-2.5 rounded-lg bg-white hover:border-gray-500 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-all cursor-pointer shadow-sm font-medium text-gray-700'
+              className='border border-gray-300 text-sm px-4 py-3  bg-white hover:border-gray-500 focus:outline-none transition-all cursor-pointer shadow-sm font-medium text-gray-700'
               value={sortType}
               onChange={(e) => setSortType(e.target.value)}
               style={{
