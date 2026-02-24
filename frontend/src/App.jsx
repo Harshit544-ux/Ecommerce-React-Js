@@ -12,12 +12,35 @@ import Footer from './component/Footer'
 import SearchBar from './component/SearchBar'
 import { ToastContainer, toast } from 'react-toastify';
 import Order from './pages/Order'
+import ProtectedRoute from './component/Auth/ProtectedRoute'
+import { useEffect, useState } from 'react'
+import SessionExpiredModal from './component/SessionExpiredModal'
 
 // set up the routes for the application
 function App() {
+  const [isSessionExpired, setIsSessionExpired] = useState(false);
+
+  useEffect(() => {
+    const handleSessionExpired = () => {
+      setIsSessionExpired(true);
+    };
+
+    window.addEventListener('sessionExpired', handleSessionExpired);
+
+    return () => {
+      window.removeEventListener('sessionExpired', handleSessionExpired);
+    };
+  }, []);
+
+  const handleCloseModal = () => {
+    setIsSessionExpired(false);
+  }
+
+
   return (
     <>
       <div>  
+        <SessionExpiredModal isOpen={isSessionExpired} onClose={handleCloseModal} />
         <ToastContainer />
         {/* Navbar */}
         <Navbar />
@@ -27,13 +50,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/collection" element={<Collection />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/product/:id" element={<Product />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path='/placeorder' element={<PlaceOrder />} />
-          <Route path='/orders' element={<Order/>}/>
+          <Route path="/collection" element={<ProtectedRoute><Collection /></ProtectedRoute>} />
+          <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
+          <Route path="/contact" element={<ProtectedRoute><Contact /></ProtectedRoute>} />
+          <Route path="/product/:id" element={<ProtectedRoute><Product /></ProtectedRoute>} />
+          <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+          <Route path='/placeorder' element={<ProtectedRoute><PlaceOrder /></ProtectedRoute>} />
+          <Route path='/orders' element={<ProtectedRoute><Order /></ProtectedRoute>} />
         </Routes>
        
       </div>
