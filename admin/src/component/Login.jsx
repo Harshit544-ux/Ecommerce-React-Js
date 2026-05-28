@@ -44,11 +44,11 @@ function Login({ setToken }) {
         <h1 className="text-2xl font-bold text-center">Admin Panel</h1>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
             Email Address
           </label>
           <input
-            type="email"
+            id="email" type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -57,11 +57,11 @@ function Login({ setToken }) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
             Password
           </label>
           <input
-            type="password"
+            id="password" type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
